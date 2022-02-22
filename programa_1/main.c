@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include <conio.h>
+#include <conio.h>
 #define MAX 50
 
 struct TLista {
@@ -29,6 +29,8 @@ int buscaElemento(int v[], int n) {
 
     return -1;
 }
+/** FIM ALGORITMO DE BUSCA **/
+
 
 /** ALGORITMO DE ORDENACAO O(n log2 n) **/
 void mergeSort(int v[]) {
@@ -164,7 +166,7 @@ int main()
         }
     } while(opcao != 0);
 
-    //getch();
+    getch();
     free(lista);
 
     return 0;
