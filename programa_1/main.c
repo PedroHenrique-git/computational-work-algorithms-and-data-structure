@@ -29,11 +29,11 @@ void inserir(Lista * lista) {}
 
 int main()
 {
-    Lista lista;
+    Lista * lista = (Lista *)malloc(sizeof(lista));
     int elementoASerInserido;
     int opcao;
 
-    inicializaLista(&lista);
+    inicializaLista(lista);
 
     do {
         printf("Digite a opcao desejada: ");
@@ -44,12 +44,12 @@ int main()
                 printf("Encerrando programa...");
             break;
             case 1:
-                mostrarLista(&lista);
+                mostrarLista(lista);
             break;
              case 2:
                 printf("\nDigite o elemento a ser inserido na lista: ");
                 scanf("%d", &elementoASerInserido);
-                inserir(&lista);
+                inserir(lista);
                 printf("\n");
             break;
              case 3:
@@ -68,5 +68,7 @@ int main()
     } while(opcao != 0);
 
     getch();
+    free(lista);
+
     return 0;
 }
