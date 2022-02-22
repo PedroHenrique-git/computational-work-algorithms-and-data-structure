@@ -10,7 +10,7 @@ struct TLista {
 } typedef Lista;
 
 /** ALGORITMO DE BUSCA **/
-int buscaElemento(int v[], int n) {
+int buscaBinaria(int v[], int n) {
     int min = 0, max = MAX - 1, meio;
 
     while(min <= max) {
