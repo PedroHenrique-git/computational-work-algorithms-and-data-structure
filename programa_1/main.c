@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
-#define MAX 50
+#define MAX 5
 
 struct TLista {
     int elementos[MAX];
     int totalDeElementos;
-
+    int estaOrdernada;
 } typedef Lista;
 
 /** ALGORITMO DE BUSCA **/
@@ -108,6 +108,8 @@ void bubbleSort(int v[]) {
 
 
 void inicializaLista (Lista * lista) {
+    lista->totalDeElementos = 0;
+    lista->estaOrdernada = 0;
     for(int i = 0; i < MAX; i++) {
         lista->elementos[i] = i;
     }
@@ -115,28 +117,56 @@ void inicializaLista (Lista * lista) {
 
 
 void mostrarLista (Lista * lista) {
-    printf("\n");
+    const int totalDeElementos = lista->totalDeElementos;
 
-    for(int i = 0; i < MAX; i++) {
-        printf("Elemento %d da lista: %d\n", i + 1, lista->elementos[i]);
+    if(totalDeElementos == 0) {
+        printf("\nA lista esta vazia!!\n\n");
+        return;
     }
 
     printf("\n");
+    for(int i = 0; i < totalDeElementos; i++) {
+        printf("Elemento %d da lista: %d\n", i + 1, lista->elementos[i]);
+    }
+    printf("\n");
 }
 
-void inserir(Lista * lista) {}
+void inserir(Lista * lista, int elemento) {
+    const int totalDeElementos = lista->totalDeElementos;
+
+    if( totalDeElementos == MAX ) {
+       printf("\nA lista ja est� cheia!!\n");
+       return;
+    }
+
+    if( totalDeElementos == 0 ) {
+        lista->elementos[0] = elemento;
+    } else {
+        for(int i = MAX; i >= 0; i--) {
+            lista->elementos[i] = lista->elementos[i - 1];
+        }
+        lista->elementos[0] = elemento;
+    }
+
+    lista->totalDeElementos = totalDeElementos + 1;
+    lista->estaOrdernada = 0;
+}
 
 int main()
 {
-    Lista * lista = (Lista *) malloc(sizeof(Lista));
+
+    Lista * lista = (Lista *)malloc(sizeof(Lista));
     int elementoASerInserido;
     int opcao;
  
     inicializaLista(lista);
 
     do {
-        printf("Digite a opcao desejada: ");
+        printf("0 - Encerrar o programa\n1 - Exibir todos os elementos da lista\n2 - Inserir elemento no inicio lista\n4 - Remover elemento\n5 - Buscar elemento\n6 - Ordenar lista\n");
+
+        printf("\nDigite a opcao desejada: ");
         scanf("%d", &opcao);
+
 
         switch(opcao) {
             case 0:
@@ -148,7 +178,7 @@ int main()
              case 2:
                 printf("\nDigite o elemento a ser inserido na lista: ");
                 scanf("%d", &elementoASerInserido);
-                inserir(lista);
+                inserir(lista, elementoASerInserido);
                 printf("\n");
             break;
              case 3:
