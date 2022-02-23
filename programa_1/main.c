@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
+//#include <conio.h>
 #define MAX 5
 
 struct TLista {
@@ -9,17 +9,130 @@ struct TLista {
     int estaOrdernada;
 } typedef Lista;
 
+int buscaBinaria(Lista *, int );
+void mergeSort(Lista *);
+void mergeSortRec(int , int , int [], int);
+void junta(int, int, int, int, int [], int);
+void bubbleSort(int []);
+
+void inicializaLista (Lista * lista) {
+    lista->totalDeElementos = 0;
+    lista->estaOrdernada = 0;
+    for(int i = 0; i < MAX; i++) {
+        lista->elementos[i] = -1;
+    }
+}
+
+void mostrarLista (Lista * lista) {
+    const int totalDeElementos = lista->totalDeElementos;
+
+    if(totalDeElementos == 0) {
+        printf("\nA lista esta vazia!!\n\n");
+        return;
+    }
+
+    printf("\n");
+    for(int i = 0; i < totalDeElementos; i++) {
+        printf("Elemento %d da lista: %d\n", i + 1, lista->elementos[i]);
+    }
+    printf("\n");
+}
+
+void inserir(Lista * lista, int elemento) {
+    const int totalDeElementos = lista->totalDeElementos;
+
+    if( totalDeElementos == MAX ) {
+       printf("\nA lista ja est� cheia!!\n");
+       return;
+    }
+
+    if( totalDeElementos == 0 ) {
+        lista->elementos[0] = elemento;
+    } else {
+        for(int i = MAX; i >= 0; i--) {
+            lista->elementos[i] = lista->elementos[i - 1];
+        }
+        lista->elementos[0] = elemento;
+    }
+
+    lista->totalDeElementos = totalDeElementos + 1;
+    lista->estaOrdernada = 0;
+}
+
+int main()
+{
+
+    Lista * lista = (Lista *)malloc(sizeof(Lista));
+    int elementoASerInserido, elementoASerBuscado;
+    int opcao;
+ 
+    inicializaLista(lista);
+
+    do {
+        printf("0 - Encerrar o programa\n1 - Exibir todos os elementos da lista\n2 - Inserir elemento no inicio lista\n4 - Remover elemento\n5 - Buscar elemento\n6 - Ordenar lista\n");
+
+        printf("\nDigite a opcao desejada: ");
+        scanf("%d", &opcao);
+
+
+        switch(opcao) {
+            case 0:
+                printf("Encerrando programa...");
+            break;
+            case 1:
+                mostrarLista(lista);
+            break;
+             case 2:
+                printf("\nDigite o elemento a ser inserido na lista: ");
+                scanf("%d", &elementoASerInserido);
+                inserir(lista, elementoASerInserido);
+                printf("\n");
+            break;
+             case 3:
+                printf("opcao 3");
+            break;
+             case 4:
+                printf("opcao 4");
+            break;
+             case 5:
+                if(lista->totalDeElementos == 0) {
+                    printf("\nA lista esta vazia \n\n");
+                    break;
+                }
+
+                if(lista->estaOrdernada == 0) {
+                    printf("\nA lista deve estar ordena para executar esta acao\n\n");
+                } else {
+                    printf("\nDigite o elemente que voce deseja pesquisar: ");
+                    scanf("%d", &elementoASerBuscado);
+                    int index = buscaBinaria(lista, elementoASerBuscado);
+                    index == -1 ? printf("\n O elemento que voce pesquisou nao esta na lista\n\n") : printf("\n O elemento esta na posicao: [%d]\n\n", index);
+                }
+            break;
+             case 6:
+                mergeSort(lista);
+                printf("\nA lista for ordenada corretamento\n\n");
+            break;
+        }
+    } while(opcao != 0);
+
+    //getch();
+    free(lista);
+
+    return 0;
+}
+
 /** ALGORITMO DE BUSCA **/
-int buscaBinaria(int v[], int n) {
-    int min = 0, max = MAX - 1, meio;
+int buscaBinaria(Lista * lista , int n) {
+    int min = 0, max = lista->totalDeElementos - 1, meio;
 
     while(min <= max) {
         meio = (min + max) / 2;
 
-        if(v[meio] == n) {
+        if(lista->elementos[meio] == n) {
             return meio;
         } else {
-            if(n < v[meio]) {
+            if(n < lista->elementos[meio]) {
                 max = meio - 1;
             } else {
                 min = meio + 1;
@@ -29,17 +142,16 @@ int buscaBinaria(int v[], int n) {
 
     return -1;
 }
-/** FIM ALGORITMO DE BUSCA **/
 
 
 /** ALGORITMO DE ORDENACAO O(n log2 n) **/
-void mergeSort(int v[]) {
-    mergeSortRec(0, MAX - 1, v, MAX);
+void mergeSort(Lista * lista) {
+    mergeSortRec(0, lista->totalDeElementos - 1, lista->elementos, lista->totalDeElementos);
+    lista->estaOrdernada = 1;
 }
 
 void mergeSortRec(int esq, int dir, int v[], int dimensao) {
     if( esq < dir ) {
-        printf("(%d, %d) \n", esq, dir);
         int meio1 = (esq + dir) / 2;
         int meio2 = meio1 + 1;
         mergeSortRec(esq, meio1, v, dimensao);
@@ -86,7 +198,6 @@ void junta(int esq, int meio1, int meio2, int dir, int v[], int dimensao) {
         indComb++;
     }
 }
-/** FIM ALGORITMO DE ORDENACAO O(n log2 n) **/
 
 /** ALGORITMO DE ORDENACAO O(n^2) **/
 void bubbleSort(int v[]) {
@@ -103,101 +214,4 @@ void bubbleSort(int v[]) {
             }
         }
     }
-}
-/** FIM DE ORDENACAO O(n^2) **/
-
-
-void inicializaLista (Lista * lista) {
-    lista->totalDeElementos = 0;
-    lista->estaOrdernada = 0;
-    for(int i = 0; i < MAX; i++) {
-        lista->elementos[i] = i;
-    }
-}
-
-
-void mostrarLista (Lista * lista) {
-    const int totalDeElementos = lista->totalDeElementos;
-
-    if(totalDeElementos == 0) {
-        printf("\nA lista esta vazia!!\n\n");
-        return;
-    }
-
-    printf("\n");
-    for(int i = 0; i < totalDeElementos; i++) {
-        printf("Elemento %d da lista: %d\n", i + 1, lista->elementos[i]);
-    }
-    printf("\n");
-}
-
-void inserir(Lista * lista, int elemento) {
-    const int totalDeElementos = lista->totalDeElementos;
-
-    if( totalDeElementos == MAX ) {
-       printf("\nA lista ja est� cheia!!\n");
-       return;
-    }
-
-    if( totalDeElementos == 0 ) {
-        lista->elementos[0] = elemento;
-    } else {
-        for(int i = MAX; i >= 0; i--) {
-            lista->elementos[i] = lista->elementos[i - 1];
-        }
-        lista->elementos[0] = elemento;
-    }
-
-    lista->totalDeElementos = totalDeElementos + 1;
-    lista->estaOrdernada = 0;
-}
-
-int main()
-{
-
-    Lista * lista = (Lista *)malloc(sizeof(Lista));
-    int elementoASerInserido;
-    int opcao;
- 
-    inicializaLista(lista);
-
-    do {
-        printf("0 - Encerrar o programa\n1 - Exibir todos os elementos da lista\n2 - Inserir elemento no inicio lista\n4 - Remover elemento\n5 - Buscar elemento\n6 - Ordenar lista\n");
-
-        printf("\nDigite a opcao desejada: ");
-        scanf("%d", &opcao);
-
-
-        switch(opcao) {
-            case 0:
-                printf("Encerrando programa...");
-            break;
-            case 1:
-                mostrarLista(lista);
-            break;
-             case 2:
-                printf("\nDigite o elemento a ser inserido na lista: ");
-                scanf("%d", &elementoASerInserido);
-                inserir(lista, elementoASerInserido);
-                printf("\n");
-            break;
-             case 3:
-                printf("opcao 3");
-            break;
-             case 4:
-                printf("opcao 4");
-            break;
-             case 5:
-                printf("opcao 5");
-            break;
-             case 6:
-                printf("opcao 6");
-            break;
-        }
-    } while(opcao != 0);
-
-    getch();
-    free(lista);
-
-    return 0;
 }
