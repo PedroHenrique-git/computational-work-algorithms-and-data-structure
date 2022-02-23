@@ -1,6 +1,21 @@
 # depslib dependency file v1.0
-1645573626 source:e:\www\computational-work-algorithms-and-data-structure\programa_1\main.c
+1645583034 source:e:\www\computational-work-algorithms-and-data-structure\programa_1\main.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
+	"tipo-lista.h"
+	"bubble-sort.h"
+	"merge-sort.h"
+	"busca-binaria.h"
+
+1645582971 e:\www\computational-work-algorithms-and-data-structure\programa_1\tipo-lista.h
+
+1645582349 e:\www\computational-work-algorithms-and-data-structure\programa_1\bubble-sort.h
+	"tipo-lista.h"
+
+1645582354 e:\www\computational-work-algorithms-and-data-structure\programa_1\merge-sort.h
+	"tipo-lista.h"
+
+1645582357 e:\www\computational-work-algorithms-and-data-structure\programa_1\busca-binaria.h
+	"tipo-lista.h"
 
