@@ -25,14 +25,13 @@ Node * criarNode(int elemento) {
 }
 
 int verificaSeElementoJaExiste(Lista * lista, int elemento) {
-    int existe = 0;
     Node * node = lista->head;
 
     for(; node != NULL; node = node->next) {
-        if(node->valor == elemento) existe = 1;
+        if(node->valor == elemento) return 1;
     }
 
-    return existe;
+    return 0;
 }
 
 void mostrarLista(Lista * lista) {
