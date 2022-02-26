@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1645906852 source:e:\www\computational-work-algorithms-and-data-structure\programa_3\main.c
+	<stdio.h>
+	<stdlib.h>
+	"constantes.h"
+	"pilha.h"
+
+1645906852 e:\www\computational-work-algorithms-and-data-structure\programa_3\constantes.h
+
+1645906852 e:\www\computational-work-algorithms-and-data-structure\programa_3\pilha.h
+	"constantes.h"
+

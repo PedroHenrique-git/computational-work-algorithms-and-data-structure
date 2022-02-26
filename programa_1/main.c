@@ -1,12 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
-#define MAX 5
 #include "tipo-lista.h"
 #include "bubble-sort.h"
 #include "merge-sort.h"
 #include "busca-binaria.h"
-
 
 void inicializaLista (Lista * lista) {
     lista->totalDeElementos = 0;
@@ -103,6 +101,12 @@ int main()
             case 2:
                 printf("\nDigite o elemento a ser inserido na lista: ");
                 scanf("%d", &elementoASerInserido);
+
+                if(buscaBinaria(lista, elementoASerInserido) != -1) {
+                    printf("\nO elemento ja existe na lista!!\n\n");
+                    break;
+                }
+
                 inserir(lista, elementoASerInserido);
                 printf("\n");
             break;
