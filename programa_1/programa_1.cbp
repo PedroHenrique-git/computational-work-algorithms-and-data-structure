@@ -31,9 +31,13 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="bubble-sort.h" />
+		<Unit filename="busca-binaria.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="merge-sort.h" />
+		<Unit filename="tipo-lista.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
