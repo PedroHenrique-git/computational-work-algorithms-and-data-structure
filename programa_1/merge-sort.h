@@ -1,5 +1,9 @@
 #include "tipo-lista.h"
 
+void mergeSort(Lista *);
+void mergeSortRec(int , int , int [], int);
+void junta(int, int, int, int, int [], int);
+
 void mergeSort(Lista * lista) {
     mergeSortRec(0, lista->totalDeElementos - 1, lista->elementos, lista->totalDeElementos);
     lista->estaOrdernada = 1;

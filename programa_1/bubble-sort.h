@@ -1,5 +1,7 @@
 #include "tipo-lista.h"
 
+void bubbleSort(Lista *);
+
 void bubbleSort(Lista * lista) {
     int trocou = 1, aux = 0;
 

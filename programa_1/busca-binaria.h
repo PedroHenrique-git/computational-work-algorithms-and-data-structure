@@ -1,5 +1,7 @@
 #include "tipo-lista.h"
 
+int buscaBinaria(Lista *, int );
+
 int buscaBinaria(Lista * lista , int n) {
     int min = 0, max = lista->totalDeElementos - 1, meio;
 

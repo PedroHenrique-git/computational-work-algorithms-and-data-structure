@@ -7,17 +7,12 @@
 #include "merge-sort.h"
 #include "busca-binaria.h"
 
-int buscaBinaria(Lista *, int );
-void mergeSort(Lista *);
-void mergeSortRec(int , int , int [], int);
-void junta(int, int, int, int, int [], int);
-void bubbleSort(Lista *);
 
 void inicializaLista (Lista * lista) {
     lista->totalDeElementos = 0;
     lista->estaOrdernada = 0;
     for(int i = 0; i < MAX; i++) {
-        lista->elementos[i] = NULL;
+        lista->elementos[i] = 0;
     }
 }
 
@@ -92,7 +87,7 @@ int main()
     inicializaLista(lista);
 
     do {
-        printf("0 - Encerrar o programa\n1 - Exibir todos os elementos da lista\n2 - Inserir elemento no inicio lista\n4 - Remover elemento\n5 - Buscar elemento\n6 - Ordenar lista\n");
+        printf("0 - Encerrar o programa\n1 - Exibir todos os elementos da lista\n2 - Inserir elemento no inicio lista\n3 - Ordenar lista (BubbleSort)\n4 - Remover elemento\n5 - Buscar elemento\n6 - Ordenar lista (MergeSort) \n");
 
         printf("\nDigite a opcao desejada: ");
         scanf("%d", &opcao);
@@ -110,6 +105,10 @@ int main()
                 scanf("%d", &elementoASerInserido);
                 inserir(lista, elementoASerInserido);
                 printf("\n");
+            break;
+            case 3:
+                bubbleSort(lista);
+                printf("\nA lista foi ordenada corretamento!!\n\n");
             break;
             case 4:
                 if( lista->estaOrdernada == 0 ) {
