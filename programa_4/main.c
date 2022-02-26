@@ -31,7 +31,7 @@ void exibeFila(FilaEncadeada * filaEncadeada) {
 }
 
 void enqueue(int elemento, FilaEncadeada * filaEncadeada) {
-    Node * node = (Node *)malloc(sizeof(Node));
+    Node * node = (Node *) malloc(sizeof(Node));
     node->elemento = elemento;
     node->next = NULL;
 
