@@ -61,9 +61,11 @@ int dequeue(FilaEncadeada * filaEncadeada) {
     Node * current = filaEncadeada->head;
     value = current->elemento;
     filaEncadeada->head = current->next;
-
+    
     filaEncadeada->quantidadeDeElementos -= 1;
     printf("\nQuantidade de elementos %d\n", filaEncadeada->quantidadeDeElementos);
+    
+    free(current);
     return value;
 }
 
