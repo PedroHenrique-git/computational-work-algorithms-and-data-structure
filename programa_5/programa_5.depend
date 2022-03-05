@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1645914228 source:e:\www\computational-work-algorithms-and-data-structure\programa_5\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+

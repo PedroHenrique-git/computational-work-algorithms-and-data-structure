@@ -54,17 +54,19 @@ void mostrarLista(Lista * lista) {
 void inserirElemento(Lista * lista, int elemento) {
     Node * node = criarNode(elemento);
 
-    if(lista->head == NULL) {
+    if(lista->head == NULL || lista->head->valor >= node->valor) {
+        node->next = lista->head;
         lista->head = node;
         return;
     }
 
     Node * currentNode = lista->head;
 
-    while(currentNode->next != NULL) {
+    while(currentNode != NULL && node->valor > currentNode->next->valor) {
         currentNode = currentNode->next;
     }
 
+    node->next = currentNode->next;
     currentNode->next = node;
 }
 
@@ -85,6 +87,9 @@ void removerElemento(Lista * lista, int elemento) {
         previousNode = currentNode;
         currentNode = currentNode->next;
     }
+
+    free(previousNode);
+    free(currentNode);
 }
 
 int main()
@@ -119,6 +124,12 @@ int main()
             case 3:
                 printf("\nDigite o elemento que deseja remover: ");
                 scanf("%d", &elemento);
+
+                if(!verificaSeElementoJaExiste(lista, elemento)) {
+                    printf("\nElemento nao existe na lista!\n\n");
+                    break;
+                }
+
                 removerElemento(lista, elemento);
                 printf("\n");
             break;
