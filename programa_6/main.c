@@ -17,6 +17,8 @@ void inicializaListaDuplamenteEncadeada(ListaDuplamenteEncadeada * listaDuplamen
    listaDuplamenteEncadeada->quantidadeDeElementos = 0;
 }
 
+/* teste */
+
 void inserirElemento(ListaDuplamenteEncadeada * listaDuplamenteEncadeada, int elemento) {
     DoublyNode * node = ( DoublyNode * ) malloc(sizeof( DoublyNode ));
     node->elemento = elemento;
