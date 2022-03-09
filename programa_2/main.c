@@ -62,7 +62,7 @@ void inserirElemento(Lista * lista, int elemento) {
 
     Node * currentNode = lista->head;
 
-    while(currentNode != NULL && node->valor > currentNode->next->valor) {
+    while(currentNode->next != NULL && node->valor > currentNode->next->valor) {
         currentNode = currentNode->next;
     }
 
