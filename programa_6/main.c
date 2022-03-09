@@ -9,7 +9,6 @@ struct TDoublyNode {
 
 struct TListaDuplamenteEncadeada {
     DoublyNode * head;
-    DoublyNode * tail;
     int quantidadeDeElementos;
 } typedef ListaDuplamenteEncadeada;
 
@@ -19,64 +18,62 @@ void inicializaListaDuplamenteEncadeada(ListaDuplamenteEncadeada * listaDuplamen
 }
 
 void inserirElemento(ListaDuplamenteEncadeada * listaDuplamenteEncadeada, int elemento) {
-    DoublyNode * doublyNode = (DoublyNode *) malloc(sizeof(DoublyNode));
-    doublyNode->next = NULL;
-    doublyNode->prev = NULL;
-    doublyNode->elemento = elemento;
+    DoublyNode * node = ( DoublyNode * ) malloc(sizeof( DoublyNode ));
+    node->elemento = elemento;
+    node->next = NULL;
+    node->prev = NULL;
+
+    DoublyNode * current =  listaDuplamenteEncadeada->head;
 
     if(listaDuplamenteEncadeada->head == NULL) {
-        listaDuplamenteEncadeada->head = doublyNode;
-        listaDuplamenteEncadeada->tail = doublyNode;
+        listaDuplamenteEncadeada->head = node;
+    } else if(elemento < listaDuplamenteEncadeada->head->elemento)  {
+        node->next = current;
+        current->prev = node;
+        listaDuplamenteEncadeada->head = node;
     } else {
-        DoublyNode * current = listaDuplamenteEncadeada->head;
-        DoublyNode * previous;
+        DoublyNode * aux;
 
-
-        while(current != NULL) {
-            if(elemento > current->elemento) {
-                previous = current;
-                break;
-            }
-
+        while(current != NULL && elemento > current->elemento) {
+            aux = current;
             current = current->next;
         }
 
-        if(previous->prev == NULL) {
-            previous = current;
-            previous->next = doublyNode;
-            doublyNode->prev = previous;
-        } else {
-            current = previous->next;
-            doublyNode->next = current;
-            previous->next = doublyNode;
-            current->prev = doublyNode;
-            doublyNode->prev = previous;
+        if(aux->next == NULL) {
+            aux->next = node;
+            node->prev = aux;
+            return;
+        }
+
+        if(aux->next != NULL) {
+            aux->next = node;
+            node->prev = aux;
+            node->next = current;
+            current->prev = node;
+            return;
         }
     }
 
     listaDuplamenteEncadeada->quantidadeDeElementos += 1;
 }
 
-void exibeFila(ListaDuplamenteEncadeada * listaDuplamenteEncadeada) {
-    DoublyNode * current  = listaDuplamenteEncadeada->head;
+void exibiElementos(ListaDuplamenteEncadeada * listaDuplamenteEncadeada) {
+   DoublyNode * current =  listaDuplamenteEncadeada->head;
 
-    int i = 0;
-    for(i = 0; i < listaDuplamenteEncadeada->quantidadeDeElementos  && current != NULL; i++) {
-        printf("\nNext values => %d\n", current->elemento);
-
+   while(current != NULL) {
+        printf("\n %d \n", current->elemento);
         current = current->next;
-    }
+   }
 
-    int j = 0;
-    for(j = 0; j < listaDuplamenteEncadeada->quantidadeDeElementos  && current != NULL; j++) {
-        printf("\nPrevious values => %d\n", current->elemento);
-
+   printf("\nDe trás para frente\n");
+   while(current != NULL) {
+        printf("\n %d \n", current->elemento);
         current = current->prev;
-    }
+   }
 }
 
 int main()
-{    
+{
     ListaDuplamenteEncadeada  * listaDuplamenteEncadeada = (ListaDuplamenteEncadeada *) malloc (sizeof(ListaDuplamenteEncadeada));
     int opcao, elementoASerInserido, elementoASerConsultado, elementoEncontrado;
 
@@ -93,15 +90,14 @@ int main()
                 printf("Encerrando programa...");
             break;
             case 1:
-                exibeFila(listaDuplamenteEncadeada);
+                exibiElementos(listaDuplamenteEncadeada);
             break;
             case 2:
-                printf("\nDigite um elemento a ser inserido na lista: ");
+                printf("\nDigite um elemento: ");
                 scanf("%d", &elementoASerInserido);
                 inserirElemento(listaDuplamenteEncadeada, elementoASerInserido);
             break;
             case 3:
-               
             break;
         }
     } while(opcao != 0);
