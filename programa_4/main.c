@@ -71,7 +71,7 @@ int consulta(int elemento, FilaEncadeada * filaEncadeada) {
     Node * current = filaEncadeada->head;
 
     for(i; i < filaEncadeada->quantidadeDeElementos && current != NULL; i++) {
-        printf("\n Elemento [%d] da fila = %d\n", i + 1, current->elemento);
+        printf("\n Elemento [%d] da fila = %d\n", i, current->elemento);
 
         if(elemento == current->elemento) {
             return i;
