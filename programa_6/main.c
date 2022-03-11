@@ -111,16 +111,17 @@ int removerElemento(ListaDuplamenteEncadeada * listaDuplamenteEncadeada, int ele
 
         if(current->next == NULL) {
             current->prev->next = NULL;
+            free(current);
             return 1;
         }
 
         if (current->next != NULL) {
             current->prev->next = current->next;
             current->next->prev = current->prev;
+            free(current);
             return 1;
         }
 
-        free(current);
     }
 
     return 1;

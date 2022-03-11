@@ -38,13 +38,8 @@ void enqueue(int elemento, FilaEncadeada * filaEncadeada) {
     if(filaEncadeada->head == NULL) {
         filaEncadeada->head = node;
     } else {
-        Node * current = filaEncadeada->head;
-
-        while(current->next != NULL) {
-            current = current->next;
-        }
-
-        current->next = node;
+        node->next = filaEncadeada->head;
+        filaEncadeada->head = node;
     }
 
     filaEncadeada->quantidadeDeElementos += 1;
@@ -59,9 +54,11 @@ int dequeue(FilaEncadeada * filaEncadeada) {
 
     int value;
     Node * current = filaEncadeada->head;
+    int i = 0;
+    for(i; i < filaEncadeada->quantidadeDeElementos - 1 && current != NULL; i++) {
+        current = current->next;
+    }
     value = current->elemento;
-    filaEncadeada->head = current->next;
-    
     filaEncadeada->quantidadeDeElementos -= 1;
     printf("\nQuantidade de elementos %d\n", filaEncadeada->quantidadeDeElementos);
     
