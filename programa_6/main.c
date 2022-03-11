@@ -13,13 +13,31 @@ struct TListaDuplamenteEncadeada {
 } typedef ListaDuplamenteEncadeada;
 
 void inicializaListaDuplamenteEncadeada(ListaDuplamenteEncadeada * listaDuplamenteEncadeada) {
-   listaDuplamenteEncadeada->head = NULL;
-   listaDuplamenteEncadeada->quantidadeDeElementos = 0;
+    listaDuplamenteEncadeada->head = NULL;
+    listaDuplamenteEncadeada->quantidadeDeElementos = 0;
 }
 
-/* teste */
+int verificaSeElementoJaExiste(ListaDuplamenteEncadeada * listaDuplamenteEncadeada, int elemento) {
+    DoublyNode * current =  listaDuplamenteEncadeada->head;
+
+    while(current != NULL) {
+        if(current->elemento == elemento) {
+            return 1;
+        }
+
+        current = current->next;
+    }
+
+    return 0;
+}
 
 void inserirElemento(ListaDuplamenteEncadeada * listaDuplamenteEncadeada, int elemento) {
+    
+    if(verificaSeElementoJaExiste(listaDuplamenteEncadeada, elemento) == 1) {
+        printf("\nEsse elemento ja esta na lista\n");
+        return;
+    }
+
     DoublyNode * node = ( DoublyNode * ) malloc(sizeof( DoublyNode ));
     node->elemento = elemento;
     node->next = NULL;
@@ -60,24 +78,58 @@ void inserirElemento(ListaDuplamenteEncadeada * listaDuplamenteEncadeada, int el
 }
 
 void exibiElementos(ListaDuplamenteEncadeada * listaDuplamenteEncadeada) {
-   DoublyNode * current =  listaDuplamenteEncadeada->head;
+    DoublyNode * current =  listaDuplamenteEncadeada->head;
+    int i = 0;
 
-   while(current != NULL) {
-        printf("\n %d \n", current->elemento);
+    while(current != NULL) {
+        printf("\n Elemento [%d] => %d \n", i, current->elemento);
+        i++;
         current = current->next;
-   }
+    }
+}
 
-   printf("\nDe trás para frente\n");
-   while(current != NULL) {
-        printf("\n %d \n", current->elemento);
-        current = current->prev;
-   }
+int removerElemento(ListaDuplamenteEncadeada * listaDuplamenteEncadeada, int elemento) {
+    DoublyNode * current =  listaDuplamenteEncadeada->head;
+    int elementoRemovido;
+
+    if( verificaSeElementoJaExiste(listaDuplamenteEncadeada, elemento) == 0 ) {
+        printf("\n Esse elemento nao esta na lista \n");
+        return -1;
+    }
+
+    if(current->elemento == elemento && current->next == NULL) {
+        listaDuplamenteEncadeada->head = NULL;
+        free(current);
+    } else if(current->elemento == elemento) {
+        current->next->prev = NULL;
+        listaDuplamenteEncadeada->head = current->next; 
+        free(current);
+    } else {
+        while(current != NULL && current->elemento != elemento) {
+            current = current->next;
+        }
+
+        if(current->next == NULL) {
+            current->prev->next = NULL;
+            return 1;
+        }
+
+        if (current->next != NULL) {
+            current->prev->next = current->next;
+            current->next->prev = current->prev;
+            return 1;
+        }
+
+        free(current);
+    }
+
+    return 1;
 }
 
 int main()
 {
     ListaDuplamenteEncadeada  * listaDuplamenteEncadeada = (ListaDuplamenteEncadeada *) malloc (sizeof(ListaDuplamenteEncadeada));
-    int opcao, elementoASerInserido, elementoASerConsultado, elementoEncontrado;
+    int opcao, elementoASerInserido, elementoASerRemovido;
 
     inicializaListaDuplamenteEncadeada(listaDuplamenteEncadeada);
 
@@ -92,6 +144,11 @@ int main()
                 printf("Encerrando programa...");
             break;
             case 1:
+                if(listaDuplamenteEncadeada->head == NULL) {
+                    printf("\nA lista esta vazia!!\n");
+                    break;
+                }
+
                 exibiElementos(listaDuplamenteEncadeada);
             break;
             case 2:
@@ -100,6 +157,14 @@ int main()
                 inserirElemento(listaDuplamenteEncadeada, elementoASerInserido);
             break;
             case 3:
+                if(listaDuplamenteEncadeada->head == NULL) {
+                    printf("\nA lista ja esta vazia!!\n");
+                    break;
+                }
+
+                printf("\nDigite o elemento que voce quer remover: ");
+                scanf("%d", &elementoASerRemovido);
+                removerElemento(listaDuplamenteEncadeada, elementoASerRemovido);
             break;
         }
     } while(opcao != 0);
