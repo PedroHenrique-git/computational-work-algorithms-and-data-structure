@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
 
 struct TNode {
     int valor;
@@ -110,5 +109,4 @@ int main()
     } while(opcao != 0);
 
     free(lista);
-    getch();
 }

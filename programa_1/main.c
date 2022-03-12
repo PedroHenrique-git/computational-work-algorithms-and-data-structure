@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
 #include "tipo-lista.h"
 #include "bubble-sort.h"
 #include "merge-sort.h"
@@ -150,7 +149,6 @@ int main()
         }
     } while(opcao != 0);
 
-    getch();
     free(lista);
 
     return 0;
