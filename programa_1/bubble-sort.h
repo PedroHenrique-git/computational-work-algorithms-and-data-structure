@@ -16,4 +16,6 @@ void bubbleSort(Lista * lista) {
             }
         }
     }
+
+    lista->estaOrdernada = 1;
 }
