@@ -60,7 +60,6 @@ int dequeue(FilaEncadeada * filaEncadeada) {
     }
     value = current->elemento;
     filaEncadeada->quantidadeDeElementos -= 1;
-    printf("\nQuantidade de elementos %d\n", filaEncadeada->quantidadeDeElementos);
     
     free(current);
     return value;
@@ -69,6 +68,11 @@ int dequeue(FilaEncadeada * filaEncadeada) {
 int consulta(int elemento, FilaEncadeada * filaEncadeada) {
     int i = 0;
     Node * current = filaEncadeada->head;
+
+    if(filaEncadeada->quantidadeDeElementos == 0) {
+        printf("\n Fila vazia!!\n");
+        return;
+    }
 
     for(i; i < filaEncadeada->quantidadeDeElementos && current != NULL; i++) {
         printf("\n Elemento [%d] da fila = %d\n", i + 1, current->elemento);

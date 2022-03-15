@@ -133,7 +133,7 @@ int main()
                 if(lista->estaOrdernada == 0) {
                     printf("\nA lista deve estar ordena para executar esta acao!!\n\n");
                 } else {
-                    printf("\nDigite o elemente que voce deseja pesquisar: ");
+                    printf("\nDigite o elemento que voce deseja pesquisar: ");
                     scanf("%d", &elementoASerBuscado);
                     int index = buscaBinaria(lista, elementoASerBuscado);
                     index == -1 ? printf("\n O elemento que voce pesquisou nao esta na lista\n\n") : printf("\n O elemento esta na posicao: [%d]\n\n", index);

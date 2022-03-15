@@ -61,8 +61,6 @@ Node * inserirElemento(Lista * lista, int elemento) {
         current->next = novoNoh;
     }
 
-    printf("\n\nHEAD --> \n\n", lista->head);
-
     return lista->head;
 }
 
