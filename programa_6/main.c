@@ -165,7 +165,14 @@ int main()
 
                 printf("\nDigite o elemento que voce quer remover: ");
                 scanf("%d", &elementoASerRemovido);
-                removerElemento(listaDuplamenteEncadeada, elementoASerRemovido);
+                int result = removerElemento(listaDuplamenteEncadeada, elementoASerRemovido);
+                
+                if(result == 1) {
+                    printf("\n Elemento removido com sucesso... \n");
+                } else {
+                    printf("\n Erro ao remover elemento... \n");
+                }
+            
             break;
         }
     } while(opcao != 0);
