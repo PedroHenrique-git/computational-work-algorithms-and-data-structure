@@ -23,22 +23,6 @@ Node * criarNode(int elemento) {
     return node;
 }
 
-int verificaSeElementoJaExiste(Lista * lista, int elemento) {
-    if(lista->head == NULL) {
-     //printf("HEAD --> %d", lista->head->next->valor);
-     return 0;
-    }
-
-    Node * current = lista->head;
-
-    while(current->next != lista->head) {
-        if(current->valor == elemento) return 1;
-        current = current->next;
-    }
-
-    return 0;
-}
-
 Node * inserirElemento(Lista * lista, int elemento) {
     Node * novoNoh = criarNode(elemento);
     Node * current = lista->head;
@@ -62,6 +46,61 @@ Node * inserirElemento(Lista * lista, int elemento) {
     }
 
     return lista->head;
+}
+
+int verificaSeElementoJaExiste(Lista * lista, int elemento) {
+    if(lista->head == NULL) return 0;
+
+    Node * current = lista->head;
+
+    while(current->valor != elemento) {
+        if(current->next == lista->head) return 0;
+        current = current->next;
+    }
+
+    return 1;
+}
+
+void deletarElementoDaLista(Lista * lista, int elemento) {
+    if(lista->head == NULL) {
+        printf("\nA lista esta vazia!\n\n");
+        return;
+    }
+
+    Node * current = lista->head;
+    Node * prev = current;
+
+    while(current->valor != elemento) {
+        if(current->next == lista->head) {
+            printf("\nElemento não existe na lista\n");
+            break;
+        }
+
+        prev = current;
+        current = current->next;
+    }
+
+    if(current->next == lista->head) {
+        lista->head = NULL;
+        free(current);
+        return;
+    }
+
+    if(current == lista->head) {
+        prev = lista->head;
+        while(prev->next != lista->head) {
+            prev = prev->next;
+        }
+        lista->head = current->next;
+        prev->next = lista->head;
+        free(current);
+    } else if(current->next == lista->head && current == lista->head) {
+        prev->next = lista->head;
+        free(current);
+    } else {
+        prev->next = current->next;
+        free(current);
+    }
 }
 
 void mostrarLista(Lista * lista) {
@@ -106,7 +145,7 @@ int main()
                 scanf("%d", &elemento);
 
                 if(verificaSeElementoJaExiste(lista, elemento)) {
-                    printf("\nElemento ja existe na lista!\n\n");
+                    printf("\n\nElemento ja existe na lista\n\n");
                     break;
                 }
 
@@ -114,6 +153,11 @@ int main()
                 printf("\n");
             break;
             case 3:
+                printf("\nDigite o elemento que deseja remover: ");
+                scanf("%d", &elemento);
+
+                deletarElementoDaLista(lista, elemento);
+                printf("\n");
             break;
             default:
                 printf("\nOpcao invalida!\n\n");
